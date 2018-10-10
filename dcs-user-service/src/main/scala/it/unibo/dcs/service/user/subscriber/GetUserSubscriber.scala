@@ -1,7 +1,6 @@
 package it.unibo.dcs.service.user.subscriber
 
 import io.netty.handler.codec.http.HttpResponseStatus
-import io.vertx.core.json.JsonObject
 import io.vertx.lang.scala.json.JsonObject
 import io.vertx.scala.core.http.HttpServerResponse
 import it.unibo.dcs.service.user.model.User

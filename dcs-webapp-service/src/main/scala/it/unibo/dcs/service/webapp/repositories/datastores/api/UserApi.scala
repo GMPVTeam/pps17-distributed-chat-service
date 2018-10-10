@@ -18,6 +18,6 @@ trait UserApi {
 /* Companion object */
 object UserApi {
   /* Factory method */
-  def userRestApi(vertx: Vertx, eventBus: EventBus): UserApi = new UserRestApi(
+  def userRestApi(vertx: Vertx, eventBus: EventBus): UserRestApi = new UserRestApi(
     new HttpEndpointDiscoveryImpl(ServiceDiscovery.create(vertx), eventBus))
 }

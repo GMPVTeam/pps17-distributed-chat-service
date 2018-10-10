@@ -14,7 +14,7 @@ import Implicits.httpResponseStatusToJsonObject
 final class CreateUserSubscriber(private[this] val response: HttpServerResponse) extends Subscriber[User] {
 
   override def onNext(user: User): Unit = {
-    val userJsonObject: JsonObject = user
+    val userJsonObject: JsonObject = userToJsonObject(user)
     response.end(userJsonObject.toString)
   }
 

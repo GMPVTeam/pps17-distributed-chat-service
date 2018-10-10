@@ -50,7 +50,7 @@ final class UserVerticle(private[this] val userRepository: UserRepository, priva
       .handler(routingContext => {
         val username = routingContext.request().getParam("username").get
         val subscriber: GetUserSubscriber = new GetUserSubscriber(routingContext.response())
-        getUserUseCase(GetUserRequest(username)).subscribe(subscriber)
+        getUserUseCase(GetUserRequest(username), subscriber)
     })
 
     router.post("/users")
@@ -60,7 +60,7 @@ final class UserVerticle(private[this] val userRepository: UserRepository, priva
         val user = routingContext.getBodyAsJson().get
         val subscriber: CreateUserSubscriber = new CreateUserSubscriber(routingContext.response())
         createUserUseCase(CreateUserRequest(user.getString("username"),
-          user.getString("first_name"), user.getString("last_name"))).subscribe(subscriber)
+          user.getString("first_name"), user.getString("last_name")), subscriber)
     })
   }
 
