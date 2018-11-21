@@ -9,7 +9,7 @@ import it.unibo.dcs.commons.VertxHelper
 import it.unibo.dcs.commons.VertxHelper.Implicits._
 import it.unibo.dcs.commons.logging.Logging
 import it.unibo.dcs.commons.service.codecs.RecordMessageCodec
-import it.unibo.dcs.service.webapp.verticles.{HearthbeatVerticle, WebAppVerticle}
+import it.unibo.dcs.service.webapp.verticles.{HeartbeatVerticle, WebAppVerticle}
 
 import scala.language.implicitConversions
 
@@ -28,7 +28,7 @@ object Launcher extends App with Logging {
       vertx.eventBus.registerDefaultCodec[Record](new RecordMessageCodec())
       vertx deployVerticle(new WebAppVerticle, DeploymentOptions()
         .setConfig(config))
-      vertx.deployVerticle(new HearthbeatVerticle(), DeploymentOptions().setWorker(true))
+      vertx.deployVerticle(new HeartbeatVerticle(), DeploymentOptions().setWorker(true))
     }, cause => log.error(startErrorMessage, cause))
 
 }

@@ -15,12 +15,13 @@ import scala.language.implicitConversions
 
 package object subscriber {
 
-  final class CreateRoomSubscriber(protected override val response: HttpServerResponse) extends Subscriber[Room]
+  final class CreateRoomSubscriber(protected override val response: HttpServerResponse)
+    extends Subscriber[Participation]
     with ErrorSubscriber with Logging {
 
-    override def onNext(room: Room): Unit = {
-      log.debug(s"Answering with room: $room")
-      response setStatus HttpResponseStatus.CREATED endWith room
+    override def onNext(participation: Participation): Unit = {
+      log.debug(s"Answering with participation: $participation")
+      response setStatus HttpResponseStatus.CREATED endWith participation
     }
 
   }

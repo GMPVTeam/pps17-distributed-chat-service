@@ -17,6 +17,7 @@ final class JoinRoomSubscriber(protected override val response: HttpServerRespon
   override def onNext(result: RoomJoinResult): Unit = {
     response setStatus HttpResponseStatus.CREATED endWith result
     publisher publish[JsonObject] result
+    println("join room result published on event bus: \n" + result)
   }
 }
 

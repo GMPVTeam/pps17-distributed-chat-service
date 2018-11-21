@@ -58,8 +58,8 @@ trait RoomApi {
   /** It tells the Room Service to store a new room
     *
     * @param request room to create information
-    * @return an observable stream of just the created room */
-  def createRoom(request: CreateRoomRequest): Observable[Room]
+    * @return an observable stream of just the created participation. */
+  def createRoom(request: CreateRoomRequest): Observable[Participation]
 
   /** Delete a room given its info
     *

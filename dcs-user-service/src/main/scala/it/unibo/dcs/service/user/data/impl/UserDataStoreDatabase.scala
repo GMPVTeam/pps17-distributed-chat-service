@@ -26,7 +26,7 @@ final class UserDataStoreDatabase(connection: SQLConnection) extends DataStoreDa
 
   override def checkIfUserExists(request: GetUserRequest): Observable[Unit] =
     query(selectUserByUsername, request)
-    .map(foldResult()(throw UserAlreadyExistsException(request.username)))
+    .map(foldResult()(_ => throw UserAlreadyExistsException(request.username)))
 
   override def getUserByUsername(request: GetUserRequest): Observable[User] =
     query(selectUserByUsername, request)

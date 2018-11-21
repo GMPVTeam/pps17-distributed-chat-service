@@ -38,7 +38,7 @@ private[verticles] object Addresses {
 
     object hearthbeat {
 
-      private val prefix = s"${users.prefix}.hearthbeat"
+      private val prefix = s"${users.prefix}.heartbeat"
 
       val request = s"$prefix.request"
 

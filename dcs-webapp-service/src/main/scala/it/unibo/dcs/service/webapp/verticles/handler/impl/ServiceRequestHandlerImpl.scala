@@ -79,7 +79,8 @@ final class ServiceRequestHandlerImpl(private[this] val eventBus: EventBus,
         handleRequestBody(context) {
           request =>
             val useCase = CreateRoomUseCase(authRepository, roomRepository)
-            useCase(request.put(authenticationLabel, token), RoomCreationSubscriber(context.response, roomCreated))
+            useCase(request.put(authenticationLabel, token),
+              RoomCreationSubscriber(context.response, roomCreated, roomJoined))
         }
     }
 

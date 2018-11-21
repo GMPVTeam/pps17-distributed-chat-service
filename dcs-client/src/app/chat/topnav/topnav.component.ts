@@ -109,6 +109,7 @@ export class TopnavComponent implements OnInit {
   }
 
   leaveRoom() {
+    console.log('Leaving room: ' + this.selectedRoom);
     this.chat.leaveRoom(this.selectedRoom)
       .subscribe(() => {
         this.router.navigate(['/']).then(succeded => {

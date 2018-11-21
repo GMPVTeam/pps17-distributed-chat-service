@@ -25,7 +25,7 @@ class RoomRepositorySpec extends RepositorySpec {
 
   private val joinRoomSubscriber = stub[Subscriber[Participation]]
   private val leaveRoomSubscriber = stub[Subscriber[Participation]]
-  private val createRoomSubscriber: Subscriber[Room] = stub[Subscriber[Room]]
+  private val createRoomSubscriber: Subscriber[Participation] = stub[Subscriber[Participation]]
   private val deleteRoomSubscriber: Subscriber[String] = stub[Subscriber[String]]
   private val registerUserSubscriber: Subscriber[Unit] = stub[Subscriber[Unit]]
   private val getRoomsSubscriber: Subscriber[List[Room]] = stub[Subscriber[List[Room]]]
@@ -50,14 +50,14 @@ class RoomRepositorySpec extends RepositorySpec {
 
   it should "create a new room" in {
     // Given
-    (roomDataStore createRoom _) expects roomCreationRequest returns Observable.just(room) noMoreThanOnce()
+    (roomDataStore createRoom _) expects roomCreationRequest returns Observable.just(participation) noMoreThanOnce()
 
     // When
     repository createRoom roomCreationRequest subscribe createRoomSubscriber
 
     // Then
     // Verify that `subscriber.onNext` has been called once with `token` as argument
-    (createRoomSubscriber onNext _) verify room once()
+    (createRoomSubscriber onNext _) verify participation once()
     // Verify that `subscriber.onCompleted` has been called once
     (() => createRoomSubscriber onCompleted) verify() once()
   }
@@ -92,7 +92,7 @@ class RoomRepositorySpec extends RepositorySpec {
 
   it should "delete an existing room" in {
     // Given
-    (roomDataStore createRoom _) expects roomCreationRequest returns Observable.just(room) noMoreThanOnce()
+    (roomDataStore createRoom _) expects roomCreationRequest returns Observable.just(participation) noMoreThanOnce()
     (roomDataStore deleteRoom _) expects deleteRoomRequest returns Observable.just(room.name) noMoreThanOnce()
 
     // When

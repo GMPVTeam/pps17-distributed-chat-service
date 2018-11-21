@@ -40,8 +40,8 @@ trait RoomRepository {
   /** Create and store a new room given the creation request
     *
     * @param request Needed data to create a new room
-    * @return an observable stream composed by the created room. */
-  def createRoom(request: CreateRoomRequest): Observable[Room]
+    * @return an observable stream composed by the created participation. */
+  def createRoom(request: CreateRoomRequest): Observable[Participation]
 
   /** Delete a room given the deletion request
     *

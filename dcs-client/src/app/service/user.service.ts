@@ -20,8 +20,8 @@ export class UserService {
   private static USER_ONLINE = 'users.online';
   private static USER_OFFLINE = 'users.offline';
 
-  private static USER_HEARTHBEAT_REQUEST = 'users.hearthbeat.request';
-  private static USER_HEARTHBEAT_RESPONSE = 'users.hearthbeat.response';
+  private static USER_HEARTBEAT_REQUEST = 'users.heartbeat.request';
+  private static USER_HEARTBEAT_RESPONSE = 'users.heartbeat.response';
 
   private userOnline = new Subject<User>();
   private userOffline = new Subject<User>();
@@ -42,11 +42,11 @@ export class UserService {
     });
 
     eventBus.registerHandler(
-      UserService.USER_HEARTHBEAT_REQUEST,
+      UserService.USER_HEARTBEAT_REQUEST,
       (err, msg) => {
         if (auth.isAuthenticated) {
           const username = auth.user.username;
-          eventBus.send(UserService.USER_HEARTHBEAT_RESPONSE, {
+          eventBus.send(UserService.USER_HEARTBEAT_RESPONSE, {
             username
           });
         }

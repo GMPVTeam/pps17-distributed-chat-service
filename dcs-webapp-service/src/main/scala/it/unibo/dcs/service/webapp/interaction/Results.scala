@@ -1,6 +1,6 @@
 package it.unibo.dcs.service.webapp.interaction
 
-import io.vertx.lang.scala.json.{Json, JsonArray, JsonObject}
+import io.vertx.lang.scala.json.{JsonArray, JsonObject}
 import it.unibo.dcs.commons.JsonHelper.Implicits.RichGson
 import it.unibo.dcs.service.webapp.gson
 import it.unibo.dcs.service.webapp.interaction.Labels.JsonLabels.tokenLabel
@@ -22,7 +22,7 @@ object Results {
 
   final case class UserEditingResult(user: User) extends DcsResult
 
-  final case class RoomCreationResult(room: Room) extends DcsResult
+  final case class RoomCreationResult(participation: Participation) extends DcsResult
 
   final case class RoomJoinResult(participation: Participation) extends DcsResult
 
@@ -37,7 +37,7 @@ object Results {
   final case class GetUserParticipationsResult(rooms: List[Room]) extends DcsResult
 
   final case class NotifyTypingUserResult(username: String) extends DcsResult
-  
+
   final case class GetUserResult(user: User) extends DcsResult
 
   final case class GetMessagesResult(messages: List[Message]) extends DcsResult
@@ -54,7 +54,8 @@ object Results {
     implicit def editUserResultToJsonString(result: UserEditingResult): String =
       resultToJsonString(result.user, identity)
 
-    implicit def roomCreationResultToJsonString(result: RoomCreationResult): String = resultToJsonString(result.room)
+    implicit def roomCreationResultToJsonString(result: RoomCreationResult): String =
+      resultToJsonString(result.participation)
 
     implicit def roomJoinResultToJsonString(result: RoomJoinResult): String = resultToJsonString(result.participation)
 
@@ -77,16 +78,18 @@ object Results {
       gson toJsonObject result.user
 
     implicit def roomCreationResultToJsonObject(result: RoomCreationResult): JsonObject =
-      gson toJsonObject result.room
+      gson toJsonObject result.participation
 
     implicit def roomJoinResultToJsonObject(result: RoomJoinResult): JsonObject =
       gson toJsonObject result.participation
 
     implicit def sendMessageResultToJsonObject(result: SendMessageResult): JsonObject =
       gson toJsonObject result.message
-    
+
     implicit def roomLeaveResultToJsonObject(result: RoomLeaveResult): JsonObject =
       gson toJsonObject result.participation
+
+    implicit def roomToJsonObject(room: Room): JsonObject = gson toJsonObject room
 
     implicit def getRoomsToJsonArray(result: GetRoomsResult): JsonArray =
       gson toJsonArray result.rooms

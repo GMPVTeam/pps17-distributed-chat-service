@@ -24,7 +24,7 @@ import scala.language.implicitConversions
 class RoomRestApi(private[this] val discovery: HttpEndpointDiscovery)
   extends AbstractApi(discovery, "room-service") with RoomApi {
 
-  override def createRoom(createRoomRequest: CreateRoomRequest): Observable[Room] = {
+  override def createRoom(createRoomRequest: CreateRoomRequest): Observable[Participation] = {
     makeRequest(client =>
       Observable.from(client.post(roomsURI).sendJsonObjectFuture(createRoomRequest)))
       .map(bodyAsJsonObject(throw InternalException(emptyBodyErrorMessage)))

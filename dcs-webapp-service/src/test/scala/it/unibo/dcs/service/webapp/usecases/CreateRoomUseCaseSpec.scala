@@ -12,7 +12,7 @@ class CreateRoomUseCaseSpec extends UseCaseSpec {
 
   private val createRoomRequest = CreateRoomRequest("Room 1", user.username, token)
 
-  private val roomCreationResult = RoomCreationResult(room)
+  private val roomCreationResult = RoomCreationResult(participation)
 
   private val roomCreationSubscriber: Subscriber[RoomCreationResult] = stub[Subscriber[RoomCreationResult]]
 
@@ -21,7 +21,7 @@ class CreateRoomUseCaseSpec extends UseCaseSpec {
 
   it should "create a new room when the use case is executed" in {
     // Given
-    (roomRepository createRoom _) expects createRoomRequest returns (Observable just room)
+    (roomRepository createRoom _) expects createRoomRequest returns (Observable just participation)
     // userRepository is called with `registerRequest` as parameter returns an observable that contains only `user`
     (authRepository checkToken _) expects checkTokenRequest returns (Observable just token)
 

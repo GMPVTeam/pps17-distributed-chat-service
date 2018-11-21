@@ -60,8 +60,8 @@ trait RoomDataStore {
   /** Store a new room given its information (e.g. room name)
     *
     * @param request needed data to store a room
-    * @return an observable stream of just the created room */
-  def createRoom(request: CreateRoomRequest): Observable[Room]
+    * @return an observable stream of just the created participation */
+  def createRoom(request: CreateRoomRequest): Observable[Participation]
 
   /** Get a list of rooms
     *

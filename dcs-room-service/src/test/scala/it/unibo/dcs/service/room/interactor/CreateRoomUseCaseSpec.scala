@@ -27,7 +27,7 @@ final class CreateRoomUseCaseSpec extends JUnitSpec with MockFactory with OneIns
   private val expectedRoom = Room(request.name)
   private val expectedParticipation = Participation(expectedRoom, request.username, new Date())
 
-  private val subscriber = stub[Subscriber[Room]]
+  private val subscriber = stub[Subscriber[Participation]]
 
   it should "Create a room when the CreateRoomUseCase is execute" in {
     //Given
@@ -38,7 +38,7 @@ final class CreateRoomUseCaseSpec extends JUnitSpec with MockFactory with OneIns
     createRoomUseCase(request).subscribe(subscriber)
 
     //Then
-    (subscriber onNext _) verify expectedRoom once()
+    (subscriber onNext _) verify expectedParticipation once()
     (() => subscriber onCompleted) verify() once()
   }
 

@@ -55,6 +55,8 @@ export class ChatService {
     });
 
     eventBus.registerHandler(ChatService.ROOM_JOINED, (err, msg) => {
+      console.log("room joined");
+      console.log(msg.body);
       this.roomJoined.next(msg.body);
     });
 
@@ -160,6 +162,7 @@ export class ChatService {
 
   registerUsersTypingListener(room: string, writingUsers: string[]){
     this.eventBus.registerHandler(ChatService.userTypingAddress(room), (err, msg) => {
+      console.log(msg.body);
       if(msg.body !== this.auth.user.username){
         writingUsers.push(msg.body);
         timer(1500).subscribe(() => writingUsers.shift(), err => console.log(err));

@@ -24,7 +24,7 @@ class RoomDataStoreSpec extends DataStoreSpec {
   private val getMessagesRequest = GetMessagesRequest(user.username, room.name, token)
 
   private val deleteRoomSubscriber = stub[Subscriber[String]]
-  private val createRoomSubscriber = stub[Subscriber[Room]]
+  private val createRoomSubscriber = stub[Subscriber[Participation]]
   private val registrationSubscriber = stub[Subscriber[Unit]]
   private val getRoomsSubscriber: Subscriber[List[Room]] = stub[Subscriber[List[Room]]]
   private val joinRoomSubscriber = stub[Subscriber[Participation]]
@@ -49,14 +49,14 @@ class RoomDataStoreSpec extends DataStoreSpec {
 
   it should "create a new room" in {
     // Given
-    (roomApi createRoom _) expects roomCreationRequest returns Observable.just(room) noMoreThanOnce()
+    (roomApi createRoom _) expects roomCreationRequest returns Observable.just(participation) noMoreThanOnce()
 
     // When
     dataStore.createRoom(roomCreationRequest).subscribe(createRoomSubscriber)
 
     // Then
     // Verify that `subscriber.onNext` has been called once with `token` as argument
-    (createRoomSubscriber onNext _) verify room once()
+    (createRoomSubscriber onNext _) verify participation once()
     // Verify that `subscriber.onCompleted` has been called once
     (() => createRoomSubscriber onCompleted) verify() once()
   }
@@ -102,7 +102,7 @@ class RoomDataStoreSpec extends DataStoreSpec {
 
   it should "delete an existing room" in {
     // Given
-    (roomApi createRoom _) expects roomCreationRequest returns Observable.just(room) noMoreThanOnce()
+    (roomApi createRoom _) expects roomCreationRequest returns Observable.just(participation) noMoreThanOnce()
     (roomApi deleteRoom _) expects roomDeletionRequest returns Observable.just(room.name) noMoreThanOnce()
 
     // When

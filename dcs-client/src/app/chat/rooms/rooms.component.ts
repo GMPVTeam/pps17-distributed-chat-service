@@ -33,6 +33,14 @@ export class RoomsComponent implements OnInit {
         this.removeRoom(participation.room.name);
       });
 
+    this.chat.onRoomJoined()
+      .pipe(participationFilter)
+      .subscribe(participation => {
+        console.log("on room joined called! Room: " + participation.room.name);
+        this.rooms.push(participation.room)
+      }
+    );
+
     this.chat.getUserParticipations()
       .subscribe(rooms => this.rooms = rooms);
 

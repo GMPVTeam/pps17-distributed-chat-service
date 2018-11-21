@@ -18,17 +18,22 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {}
 
   register() {
-    this.auth.register(this.request).subscribe(
-      user => {},
-      err => {
-        const error = err.error.error;
-        Toast.toast("Registration failed! \n" + error.type + " error. \n Make sure to fill correctly all fields.");
-        console.error(err);
-        this.request.password = '';
-        this.request.passwordConfirm = '';
-      },
-      () => this.router.navigateByUrl('/')
-    );
+    if (!new RegExp(/^[A-Za-z0-9]+$/).test(this.request.username)){
+      Toast.toast("Username not permitted. You can't use spaces or special characters");
+    } else {
+      this.auth.register(this.request).subscribe(
+        user => {
+        },
+        err => {
+          const error = err.error.error;
+          Toast.toast("Registration failed! \n" + error.type + " error. \n Make sure to fill correctly all fields.");
+          console.error(err);
+          this.request.password = '';
+          this.request.passwordConfirm = '';
+        },
+        () => this.router.navigateByUrl('/')
+      );
+    }
   }
 
 }

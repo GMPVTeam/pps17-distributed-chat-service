@@ -8,9 +8,9 @@ import it.unibo.dcs.commons.VertxHelper.Implicits.RichEventBus
 import it.unibo.dcs.commons.service.ServiceVerticle
 import it.unibo.dcs.exceptions.UsernameRequiredException
 import it.unibo.dcs.service.webapp.verticles.Addresses.{internal, users}
-import it.unibo.dcs.service.webapp.verticles.HearthbeatVerticle.{KEY_ONLINE, KEY_USERNAME, TIMEOUT, usernameHandler}
+import it.unibo.dcs.service.webapp.verticles.HeartbeatVerticle.{KEY_ONLINE, KEY_USERNAME, TIMEOUT, usernameHandler}
 
-final class HearthbeatVerticle extends ServiceVerticle {
+final class HeartbeatVerticle extends ServiceVerticle {
 
   override protected[this] def initializeRouter(router: Router): Unit = ()
 
@@ -32,9 +32,9 @@ final class HearthbeatVerticle extends ServiceVerticle {
       isUserOnlineResponse.publish(Json.obj((KEY_ONLINE, online)))
     })
 
-    val hearthbeatRequest: Publisher = eventBus.address(users.hearthbeat.request)
+    val heartbeatRequest: Publisher = eventBus.address(users.hearthbeat.request)
 
-    hearthbeatRequest.publish(Json.emptyObj())
+    heartbeatRequest.publish(Json.emptyObj())
 
     var responses = Set[String]()
 
@@ -53,13 +53,13 @@ final class HearthbeatVerticle extends ServiceVerticle {
 
       activeUsers = activeUsers diff inactiveUser
 
-      hearthbeatRequest.publish(Json.emptyObj())
+      heartbeatRequest.publish(Json.emptyObj())
     })
   }
 
 }
 
-object HearthbeatVerticle {
+object HeartbeatVerticle {
 
   private val TIMEOUT = 5000L
 
